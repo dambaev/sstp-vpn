@@ -26,7 +26,10 @@ DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc || {
 # now remove all leftovers from building
 cd /usr/src/app
 
+dpkg --clear-selections
 dpkg --set-selections < clean
+# mark them to remove config files as well
+dpkg --get-selections | grep deinstall | awk '{print $1 " purge"}' | dpkg --set-selections
 apt-get -y --force-yes dselect-upgrade
 dpkg --get-selections > after
 dpkg -l > after_versions
