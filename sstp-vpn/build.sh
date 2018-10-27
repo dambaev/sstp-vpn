@@ -23,6 +23,7 @@ DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc
 # now remove all leftovers from building
 cd /usr/src/app
 
+rm -rf ./sstp-client-$SSTP_VERSION
 dpkg --clear-selections
 dpkg --set-selections < clean
 # mark them to remove config files as well
