@@ -38,6 +38,6 @@ diff clean_versions after_versions
 
 # now install deps and sstp-client itself
 apt install -y ppp
-dpkg -i sstp-client_$SSTP_VERSION-1_amd64.deb
+dpkg -i sstp-client_${SSTP_VERSION}*.deb
 apt install -y -f 
 
