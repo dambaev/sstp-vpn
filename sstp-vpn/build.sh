@@ -3,7 +3,6 @@
 SSTP_VERSION=1.0.12
 
 cd /usr/src/app
-ls -la 
 
 apt update
 apt upgrade -y && apt dist-upgrade -y
