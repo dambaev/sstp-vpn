@@ -17,6 +17,7 @@ apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-de
 cd /usr/src/app/sstp-client-$SSTP_VERSION
 USER=build dh_make --createorig -s -y
 dpkg-buildpackage -us -uc
+cat src/test-suite.log
 
 # now remove all leftovers from building
 cd /usr/src/app
