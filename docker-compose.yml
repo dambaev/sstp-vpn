@@ -1,0 +1,10 @@
+version: '2'
+services:
+  sstp-vpn:
+    build: ./sstp-vpn
+    restart: on-failure
+    network_mode: host
+    cap_add:
+        - NET_ADMIN
+    devices:
+        - "/dev/ppp:/dev/ppp"

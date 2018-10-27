@@ -1,0 +1,11 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie-slim
+WORKDIR /usr/src/app
+
+COPY ./build.sh ./
+COPY ./sstp-client-1.0.12 ./
+COPY ./start.sh ./
+
+RUN ./build.sh
+
+CMD ["./start.sh"]
+
