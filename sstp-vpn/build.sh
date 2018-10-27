@@ -13,7 +13,7 @@ dpkg -l > clean_versions
 
 # building package
 
-apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev
+apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev
 cd /usr/src/app/sstp-client-$SSTP_VERSION
 USER=build dh_make --createorig -s -y
 dpkg-buildpackage -us -uc
