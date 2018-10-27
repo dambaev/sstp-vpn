@@ -35,6 +35,7 @@ diff clean_versions after_versions
 
 # now install deps and sstp-client itself
 apt install -y ppp
-dpkg -i sstp-client_${SSTP_VERSION}*.deb
+# this will fail due to missing deps, which we will install on the next step
+dpkg -i sstp-client_${SSTP_VERSION}*.deb || true
 apt install -y -f 
 
