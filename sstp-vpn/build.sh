@@ -18,10 +18,7 @@ cd /usr/src/app/sstp-client-$SSTP_VERSION
 USER=build dh_make --createorig -s -y
 # we need DEB_BUILD_OPTIONS=nocheck because build environment will not allow
 # us to modify routing table
-DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc || {
-	cat src/test-suite.log
-	exit 1
-}
+DEB_BUILD_OPTIONS=nocheck dpkg-buildpackage -us -uc
 
 # now remove all leftovers from building
 cd /usr/src/app
