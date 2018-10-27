@@ -15,7 +15,7 @@ dpkg -l > clean_versions
 
 apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev
 cd /usr/src/app/sstp-client-$SSTP_VERSION
-dh_make --createorig -s -y
+USER=build dh_make --createorig -s -y
 dpkg-buildpackage -us -uc
 
 # now remove all leftovers from building
