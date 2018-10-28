@@ -6,13 +6,13 @@ function usage(){
 	echo "$0 <SSTP_PASSWORD> <FORWARD_IP>"
 }
 
-if [ "$PWD" == "" || "$FWD_IP" == "" ]; then
+if [ "$PWD" == "" ] || [ "$FWD_IP" == "" ]; then
        usage
        exit 1
 fi
 
 # stop already running client
-sstp-vpn-stop
+sstp-vpn-stop.sh
 
 #run new one
 nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --password "$PWD" gw.smartplants.no \
