@@ -1,7 +1,7 @@
 version: '2'
 services:
-  sstp-vpn:
-    build: ./sstp-vpn
+  sstpvpn:
+    build: ./sstpvpn
     restart: on-failure
     network_mode: host
     cap_add:
