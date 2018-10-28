@@ -6,7 +6,7 @@ killall sstpc || true
 iptables -t nat -F VPNFWDSNAT
 iptables -t nat -F VPNFWDDNAT
 
-# remove POSTROUTING
+# remove POSTROUTING and PREROUTING jumps
 SNAT_LIST=$(iptables -t nat -vnL POSTROUTING --line-numbers | grep VPNFWDSNAT)
 DNAT_LIST=$(iptables -t nat -vnL PREROUTING --line-numbers | grep VPNFWDDNAT)
 
