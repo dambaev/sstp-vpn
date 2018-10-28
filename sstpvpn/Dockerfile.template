@@ -9,5 +9,5 @@ COPY ./sstp-vpn-stop.sh ./
 
 RUN ./build.sh
 
-CMD ["/usr/src/app/start.sh"]
+CMD ["/bin/bash"]
 
