@@ -1,12 +1,13 @@
 #!/bin/bash -ex
 PWD="$1"
-FWD_IP="$2"
+GW_IP="$2"
+FWD_IP="$3"
 
 function usage(){
 	echo "$0 <SSTP_PASSWORD> <FORWARD_IP>"
 }
 
-if [ "$PWD" == "" ] || [ "$FWD_IP" == "" ]; then
+if [ "$PWD" == "" ] || [ "$GW_IP" == "" ] || [ "$FWD_IP" == "" ]; then
        usage
        exit 1
 fi
@@ -15,7 +16,7 @@ fi
 sstp-vpn-stop.sh
 
 #run new one
-nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --password "$PWD" gw.smartplants.no \
+nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --password "$PWD" "$GW_IP" \
 	require-mppe \
 	require-mschap-v2 \
 	refuse-eap \
