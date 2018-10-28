@@ -1,0 +1,59 @@
+#!/bin/bash -ex
+PWD="$1"
+FWD_IP="$2"
+
+function usage(){
+	echo "$0 <SSTP_PASSWORD> <FORWARD_IP>"
+}
+
+if [ "$PWD" == "" || "$FWD_IP" == "" ]; then
+       usage
+       exit 1
+fi
+
+# stop already running client
+sstp-vpn-stop
+
+#run new one
+nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --password "$PWD" gw.smartplants.no \
+	require-mppe \
+	require-mschap-v2 \
+	refuse-eap \
+	refuse-pap \
+	refuse-chap \
+	refuse-mschap \
+	noauth \
+	noccp \
+	noaccomp \
+	noipdefault \
+	nomagic \
+	novj \
+	user "resindevice" \
+	password "$PWD" &
+
+# wait while ppp0 will be availabe
+TIMEOUT_CNT=60 # timeout seconds
+IFACE=""
+
+while [ "$IFACE" == ""]; do
+	ip li show dev ppp0 2>/dev/null >/dev/null && {
+		IFACE=ppp0
+	} || sleep 1s
+done
+
+sysctl net.ipv4.ip_forward=1
+
+# setup forwardings
+iptables -t nat -N VPNFWDDNAT
+iptables -t nat -A VPNFWDDNAT -i ppp0 -p tcp -m tcp -j DNAT --to-destination $FWD_IP
+iptables -t nat -A VPNFWDDNAT -i ppp0 -p udp -m udp -j DNAT --to-destination $FWD_IP
+
+iptables -t nat -N VPNFWDSNAT
+iptables -t nat -A VPNFWDSNAT -i ppp0 -j MASQUERADE
+iptables -t nat -A VPNFWDSNAT -o ppp0 -j MASQUERADE
+
+# now setup jumps to our chains
+iptables -t nat -A POSTROUTING -j VPNFWDSNAT
+iptables -t nat -A PREROUTING  -j VPNFWDDNAT
+
+
