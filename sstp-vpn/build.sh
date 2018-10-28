@@ -43,5 +43,6 @@ apt install -y -f
 PLUGIN_PATH=$(find /usr -name sstp-pppd-plugin.so)
 ln -s $PLUGIN_PATH /usr/lib/pppd/$(pppd --version 2>&1 | awk '{print $3}')/ || true # maybe it is the same path?
 
-
+ln -s /usr/src/app/sstp-vpn.sh /usr/local/bin/
+ln -s /usr/src/app/sstp-vpn-stop.sh /usr/local/bin
 
