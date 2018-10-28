@@ -4,8 +4,10 @@ WORKDIR /usr/src/app
 COPY ./build.sh ./
 COPY ./sstp-client-1.0.12 ./sstp-client-1.0.12/
 COPY ./start.sh ./
+COPY ./sstp-vpn.sh ./
+COPY ./sstp-vpn-stop.sh ./
 
 RUN ./build.sh
 
-CMD ["./start.sh"]
+CMD ["/usr/src/app/start.sh"]
 
