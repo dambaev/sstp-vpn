@@ -3,8 +3,8 @@
 killall sstpc || true
 
 # flush iptables chains
-iptables -t nat -F VPNFWDSNAT
-iptables -t nat -F VPNFWDDNAT
+iptables -t nat -F VPNFWDSNAT || true
+iptables -t nat -F VPNFWDDNAT || true
 
 # remove POSTROUTING and PREROUTING jumps
 SNAT_LIST=$(iptables -t nat -vnL POSTROUTING --line-numbers | grep VPNFWDSNAT)
