@@ -42,8 +42,6 @@ while [ "$IFACE" == ""]; do
 	} || sleep 1s
 done
 
-sysctl net.ipv4.ip_forward=1 || true
-
 # setup forwardings
 iptables -t nat -N VPNFWDDNAT || true
 iptables -t nat -A VPNFWDDNAT -i ppp0 -p tcp -m tcp -j DNAT --to-destination $FWD_IP
