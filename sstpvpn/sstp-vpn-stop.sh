@@ -7,8 +7,8 @@ iptables -t nat -F VPNFWDSNAT || true
 iptables -t nat -F VPNFWDDNAT || true
 
 # remove POSTROUTING and PREROUTING jumps
-SNAT_LIST=$(iptables -t nat -vnL POSTROUTING --line-numbers | grep VPNFWDSNAT)
-DNAT_LIST=$(iptables -t nat -vnL PREROUTING --line-numbers | grep VPNFWDDNAT)
+SNAT_LIST=$(iptables -t nat -vnL POSTROUTING --line-numbers | grep VPNFWDSNAT || echo "")
+DNAT_LIST=$(iptables -t nat -vnL PREROUTING --line-numbers | grep VPNFWDDNAT || echo "")
 
 while [ "$SNAT_LIST" != "" ]; do
 	LINENUM=$(echo $SNAT_LIST | awk '{print $1}')
