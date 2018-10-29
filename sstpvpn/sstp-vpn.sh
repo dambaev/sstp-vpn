@@ -16,7 +16,7 @@ fi
 sstp-vpn-stop.sh
 
 #run new one
-nohup sstpc --log-level 5 --log-stderr --cert-warn --user \"resindevice\" --password \"$PWD\" "$GW_IP" \
+nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --password "$PWD" "$GW_IP" \
 	require-mppe \
 	require-mschap-v2 \
 	refuse-eap \
@@ -29,8 +29,8 @@ nohup sstpc --log-level 5 --log-stderr --cert-warn --user \"resindevice\" --pass
 	noipdefault \
 	nomagic \
 	novj \
-	user \"resindevice\" \
-	password \"$PWD\" &
+	user "resindevice" \
+	password "$PWD" &
 
 # wait while ppp0 will be availabe
 TIMEOUT_CNT=60 # timeout seconds
