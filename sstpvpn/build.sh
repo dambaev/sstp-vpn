@@ -4,7 +4,7 @@ SSTP_VERSION=1.0.12
 
 cd /usr/src/app
 
-for SITE in `cat /etc/apt/sources.list | grep deb | grep jessie | awk '{print $2}'`; do
+for SITE in $(cat /etc/apt/sources.list | grep deb | grep jessie | awk '{print $2}'); do
 	echo "deb $LIST stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list
 done
 
