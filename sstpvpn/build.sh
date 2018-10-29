@@ -4,6 +4,15 @@ SSTP_VERSION=1.0.12
 
 cd /usr/src/app
 
+LIST=$(cat /etc/apt/sources.list | grep deb | grep jessie | awk '{print $2}')
+for SITE in $LIST; do
+	echo "deb $LIST stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list
+done
+
+echo 'Package: *
+Pin: release n=stretch
+Pin-Priority: -10' > /etc/apt/preferences.d/stretch
+
 apt update
 apt upgrade -y && apt dist-upgrade -y
 
@@ -13,7 +22,8 @@ dpkg -l > clean_versions
 
 # building package
 
-apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev
+apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev 
+apt install -y -t stretch automake
 cd /usr/src/app/sstp-client-$SSTP_VERSION
 LOGNAME=root USER=root dh_make --createorig -s -y
 # we need DEB_BUILD_OPTIONS=nocheck because build environment will not allow
