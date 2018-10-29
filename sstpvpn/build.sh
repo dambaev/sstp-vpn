@@ -4,10 +4,7 @@ SSTP_VERSION=1.0.12
 
 cd /usr/src/app
 
-LIST=$(cat /etc/apt/sources.list | grep deb | grep jessie | awk '{print $2}')
-for SITE in $LIST; do
-	echo "deb $LIST stretch main contrib non-free" >> /etc/apt/sources.list.d/stretch.list
-done
+cat /etc/apt/sources.list | grep deb | grep jessie | awk '{print "deb " $2 "main contrib non-free"}' >> /etc/apt/sources.list.d/stretch.list
 
 echo 'Package: *
 Pin: release n=stretch
