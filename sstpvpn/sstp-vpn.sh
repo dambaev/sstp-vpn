@@ -36,10 +36,16 @@ nohup sstpc --log-level 5 --log-stderr --cert-warn --user "resindevice" --passwo
 TIMEOUT_CNT=60 # timeout seconds
 IFACE=""
 
-while [ "$IFACE" == ""]; do
+while [ "$IFACE" == "" ]; do
 	ip li show dev ppp0 2>/dev/null >/dev/null && {
 		IFACE=ppp0
-	} || sleep 1s
+	} || {
+		TIMEOUT_CNT=$(( $TIMEOUT_CNT - 1))
+		if [ "$TIMEOUT_CNT" == "0" ]; then
+			exit 1
+		fi
+		sleep 1s
+	}
 done
 
 # setup forwardings
