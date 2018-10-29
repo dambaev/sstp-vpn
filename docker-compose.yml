@@ -3,7 +3,6 @@ services:
   sstpvpn:
     build: ./sstpvpn
     restart: on-failure
-    privileged: true
     network_mode: host
     cap_add:
         - NET_ADMIN
