@@ -4,7 +4,7 @@ GW_IP="$2"
 FWD_IP="$3"
 
 function usage(){
-	echo "$0 <SSTP_PASSWORD> <FORWARD_IP>"
+	echo "$0 <SSTP_PASSWORD> <GW_IP> <FORWARD_IP>"
 }
 
 if [ "$PWD" == "" ] || [ "$GW_IP" == "" ] || [ "$FWD_IP" == "" ]; then
