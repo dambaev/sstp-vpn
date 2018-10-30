@@ -19,7 +19,7 @@ dpkg -l > clean_versions
 
 # building package
 
-apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev 
+apt install -y -t stretch pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev 
 apt install -y -t stretch automake
 cd /usr/src/app/sstp-client-$SSTP_VERSION
 LOGNAME=root USER=root dh_make --createorig -s -y
@@ -38,14 +38,14 @@ dpkg --get-selections | grep deinstall | awk '{print $1 " purge"}' | dpkg --set-
 apt-get -y --force-yes dselect-upgrade
 dpkg --get-selections > after
 dpkg -l > after_versions
-diff clean after
-diff clean_versions after_versions
+#diff clean after
+#diff clean_versions after_versions
 
 # now install deps and sstp-client itself
-apt install -y ppp nmap tcpdump iptables psmisc telnet
+apt install -y -t stretch ppp nmap tcpdump iptables psmisc telnet
 # this will fail due to missing deps, which we will install on the next step
 dpkg -i sstp-client_${SSTP_VERSION}*.deb || true
-apt install -y -f 
+apt install -y -f -t stretch
 # we need to be sure, that plugin is available at search path for pppd
 PLUGIN_PATH=$(find /usr -name sstp-pppd-plugin.so)
 ln -s $PLUGIN_PATH /usr/lib/pppd/$(pppd --version 2>&1 | awk '{print $3}')/ || true # maybe it is the same path?
