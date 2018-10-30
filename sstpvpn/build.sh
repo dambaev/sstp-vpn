@@ -46,7 +46,7 @@ apt install -y ppp nmap tcpdump iptables psmisc telnet
 apt install -y -t stretch libssl1.1
 # this will fail due to missing deps, which we will install on the next step
 dpkg -i sstp-client_${SSTP_VERSION}*.deb || true
-apt install -y -f 
+apt install -y -f -t stretch
 # we need to be sure, that plugin is available at search path for pppd
 PLUGIN_PATH=$(find /usr -name sstp-pppd-plugin.so)
 ln -s $PLUGIN_PATH /usr/lib/pppd/$(pppd --version 2>&1 | awk '{print $3}')/ || true # maybe it is the same path?
