@@ -19,8 +19,8 @@ dpkg -l > clean_versions
 
 # building package
 
-apt install -y pkg-config dh-make build-essential libevent-dev libssl-dev ppp-dev autotools-dev 
-apt install -y -t stretch automake
+apt install -y pkg-config dh-make build-essential libevent-dev ppp-dev autotools-dev 
+apt install -y -t stretch automake libssl-dev
 cd /usr/src/app/sstp-client-$SSTP_VERSION
 LOGNAME=root USER=root dh_make --createorig -s -y
 # we need DEB_BUILD_OPTIONS=nocheck because build environment will not allow
@@ -43,6 +43,7 @@ diff clean_versions after_versions
 
 # now install deps and sstp-client itself
 apt install -y ppp nmap tcpdump iptables psmisc telnet
+apt install -y -t stretch libssl1.1
 # this will fail due to missing deps, which we will install on the next step
 dpkg -i sstp-client_${SSTP_VERSION}*.deb || true
 apt install -y -f 
